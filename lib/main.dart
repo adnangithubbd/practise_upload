@@ -1,13 +1,58 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text('Login Screen'),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(8),
+        child: Center(
+          child: Card(
+            elevation: 5,
+            child: Padding(
+              padding: EdgeInsets.all(16),
+              child: inputArea(),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ));
 }
+
+
+
+
+Widget inputArea() {
+  return Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+      TextField(
+        decoration: InputDecoration(labelText: 'Username'),
+      ),
+      SizedBox(height: 12),
+      TextField(
+        obscureText: true,
+        decoration: InputDecoration(labelText: 'Password'),
+      ),
+      SizedBox(height: 24),
+      ElevatedButton(
+        onPressed: () {
+          // Handle login button press
+        },
+        child: Text('Login'),
+      ),
+    ],
+  );
+}
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              'hey there i have made some changed in the code... ',
             ),
             Text(
               '$_counter',
