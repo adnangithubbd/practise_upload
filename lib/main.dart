@@ -26,13 +26,13 @@ Widget inputArea() {
   return Column(
     mainAxisSize: MainAxisSize.min,
     children: <Widget>[
-      TextField(
-        decoration: InputDecoration(labelText: 'Username'),
+      const TextField(
+        decoration: InputDecoration(labelText: 'Username and public'),
       ),
       SizedBox(height: 12),
       TextField(
         obscureText: true,
-        decoration: InputDecoration(labelText: 'Password'),
+        decoration: InputDecoration(labelText: 'Password and secret'),
       ),
       SizedBox(height: 24),
       ElevatedButton(
