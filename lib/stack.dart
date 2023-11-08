@@ -12,11 +12,13 @@ class StackDemo extends StatelessWidget {
           width: 100,
           height: 100,
           color: Colors.red,
-        ),Container(
+        ),
+        Container(
           width: 90,
           height: 90,
           color: Colors.green,
-        ),Container(
+        ),
+        Container(
           width: 80,
           height: 80,
           color: Colors.blue,

@@ -1,79 +1,155 @@
 import 'package:flutter/material.dart';
 import 'package:hojoborlo_project/home_pages.dart';
+import 'package:hojoborlo_project/text_field_example.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'my_app.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: Scaffold(
+  runApp(App());
+}
+
+class App extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ScreenA(),
+    );
+  }
+}
+
+class ScreenA extends StatelessWidget {
+  const ScreenA({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    int number = 12;
+    String password = "thisIsPassword";
+    TextEditingController _pcontrller = TextEditingController();
+    TextEditingController _econtroller = TextEditingController();
+    return Scaffold(
       appBar: AppBar(
-        title: const Text('Login Screen'),
+        title: Text('Screen A'),
       ),
-      body: MyHomePage(title: 'homepage title... !',),
-      // body: Padding(
-      //   padding: EdgeInsets.all(8),
-      //   child: Center(
-      //     child: Card(
-      //       elevation: 5,
-      //       child: Padding(
-      //         padding: const EdgeInsets.all(16),
-      //         child: MyApp(),
-      //       ),
-      //     ),
-      //   ),
-      // ),
-    ),
-  ));
+      body: Column(
+        children: [
+          SizedBox(
+            height: 122,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width/1.20,
+            child: TextField(
+              controller: _econtroller,
+              decoration: InputDecoration(
+                labelText: 'Input Email',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 1.20,
+            child: TextField(
+              controller: _pcontrller,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ScreenB(number:  _pcontrller.text , password: _econtroller.text)));
+              },
+              child: Icon(Icons.place),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-Widget inputArea() {
-  TextEditingController eController=TextEditingController();
-  TextEditingController pController=TextEditingController();
+class ScreenB extends StatelessWidget {
+  final String number;
+  final String password;
 
+  const ScreenB({required this.number, required this.password, super.key});
 
-  return Column(
-    mainAxisSize: MainAxisSize.min,
-    children: <Widget>[
-      TextField(
-
-        controller: eController,
-        decoration: InputDecoration(
-            labelText: 'Email/phone number',
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(color: Colors.blue),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(color: Colors.green),
-            )),
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('number from A $number'),
+            Text('passsword from A $password'),
+          ],
+        ),
       ),
-      const SizedBox(height: 12),
-      TextField(
-        obscureText: true,
-        controller: pController,
-        decoration: InputDecoration(
-            labelText: 'Password',
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(color: Colors.blue),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2.0),
-              borderSide: const BorderSide(color: Colors.green),
-            )),
-      ),
-      const SizedBox(height: 24),
-      ElevatedButton(
-        onPressed: () {
-          // Handle login button press
-        },
-        child: Text('Login'),
-      ),
-    ],
-  );
+    );
+  }
 }
 
+//////////////////////////////////////////////////////////////////
 
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('First Screen')),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // Data to be sent to the second screen
+            Map<String, dynamic> sendData = {
+              'name': 'John Doe',
+              'age': 30,
+              // Add other data as needed
+            };
 
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const SecondScreen()),
+            );
+          },
+          child: const Text('Go to Second Screen'),
+        ),
+      ),
+    );
+  }
+}
+
+class SecondScreen extends StatelessWidget {
+  const SecondScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Map<String, dynamic> receivedData =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    final String receivedName = receivedData['name'];
+    final int receivedAge = receivedData['age'];
+
+    return Scaffold(
+      appBar: AppBar(title: Text('Second Screen')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Received Name: $receivedName'),
+            Text('Received Age: $receivedAge'),
+          ],
+        ),
+      ),
+    );
+  }
+}
