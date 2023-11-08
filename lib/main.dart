@@ -91,7 +91,7 @@ class ScreenB extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('number from A $number'),
-            Text('passsword from A $password'),
+            Text('password from A $password'),
           ],
         ),
       ),
